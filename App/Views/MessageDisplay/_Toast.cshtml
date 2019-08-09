@@ -1,0 +1,19 @@
+﻿@model MessageDisplayModel
+@using App.Models;
+
+<div class="toast m-2" id="synapse-toast-@Model.Date.Millisecond" style="min-width: 300px; width: auto;" role="alert" aria-live="polite" aria-atomic="true" data-autohide="false">
+    <div class="toast-header text-@Model.TextColor bg-@Model.Color">
+        <strong class="mr-auto">@Html.Raw(Model.Title)</strong>
+        <small class"ml-2">@Model.Date.ToUniversalTime()</small>
+        <button type="button" class="close ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body bg-dark">@Html.Raw(Model.Message)</div>
+    <script>
+        $("#synapse-toast-@Model.Date.Millisecond button.close")
+            .on("click", function (event) {
+                $("#synapse-toast-@Model.Date.Millisecond").remove();
+            })
+    </script>
+</div>

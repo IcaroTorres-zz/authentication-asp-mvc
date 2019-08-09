@@ -1,0 +1,94 @@
+﻿* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#error {
+    position: relative;
+    height: 100vh;
+}
+
+    #error .error {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        padding: 0 2em 2em;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #3d3d3d;
+    }
+
+.error {
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    padding: 0px 15px;
+}
+
+    .error .error-code {
+        position: relative;
+        height: auto;
+    }
+
+        .error .error-code h1 {
+            font-family: 'Titillium Web', sans-serif;
+            margin: 0px;
+            font-size: 10em;
+            font-weight: 900;
+            text-transform: uppercase;
+            background: url('img/text.png') no-repeat center;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: cover;
+        }
+
+    .error h2 {
+        font-family: 'Titillium Web', sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .error p {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 0px;
+    }
+
+    .error a {
+        font-family: 'Titillium Web', sans-serif;
+        display: inline-block;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        background: #5c91fe;
+        padding: 10px 40px;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 1px;
+        margin-top: 15px;
+        -webkit-transition: 0.2s all;
+        transition: 0.2s all;
+    }
+
+        .error a:hover {
+            opacity: 0.8;
+        }
+
+@media only screen and (max-width: 767px) {
+    .error .error-code {
+        line-height: 110px;
+    }
+
+        .error .error-code h1 {
+            font-size: 120px;
+        }
+}

@@ -1,0 +1,133 @@
+﻿@model ProfileModel
+@using App.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Profile";
+    var success = (string)ViewBag.Success;
+    var error = (string)ViewBag.Error;
+}
+
+<div class="wrapper">
+    <div class="container">
+        @using (Html.BeginForm("Index", "Profile", FormMethod.Post, new { @class = "row m-auto", @style = "max-width: 640px" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-12 p-3 bg-light d-flex justify-content-between align-center rounded-top border-bottom border-primary">
+                <span class="h5 font-weight-normal text-primary m-0">User's Profile</span>
+                <span class="text-muted">* Required fields</span>
+            </div>
+            <div class="col-12 p-3 bg-light">
+                <div class="form-group">
+                    <small>
+                        <i class="fa fa-user-circle text-primary mr-2"></i>
+                        @Html.LabelFor(m => m.Name, new { @class = "label-control text-muted" })
+                    </small>
+                    @Html.EditorFor(m => m.Name, new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control border-0 pl-4",
+                            @placeholder = "User name"
+                        }
+                    })
+                    <small>@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</small>
+                </div>
+                <div class="form-group">
+                    <small>
+                        <i class="fa fa-envelope-open text-primary mr-2"></i>
+                        @Html.LabelFor(m => m.Email, new { @class = "label-control text-muted" })
+                    </small>
+                    @Html.EditorFor(m => m.Email, new
+                    {
+                        htmlAttributes = new
+                        {
+                            @autofocus = true,
+                            @class = "form-control border-0 pl-4",
+                            @placeholder = "Email address",
+                            @type = "email",
+                            autocomplete = "username"
+                        }
+                    })
+                    <small>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</small>
+                </div>
+            </div>
+            <div class="col-12 bg-light border-top border-primary rounded-bottom">
+                <div class="d-flex py-2 align-items-center justify-content-between">
+                    <div class="d-flex align-items-center col-xs-12 p-0 col">
+                        <small class="col-xs-12 w-auto">
+                            <i class="fa fa-unlock-alt text-primary"></i>
+                            @Html.LabelFor(m => m.Password, new { @class = "label-control text-muted m-0" })
+                        </small>
+                        <div class="col-xs-12 col-sm ml-sm-2 p-0">
+                            @Html.EditorFor(m => m.Password, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @autofocus = true,
+                                    @class = "form-control form-control-sm border-0 text-center",
+                                    @placeholder = "New password",
+                                    @type = "password",
+                                    autocomplete = "new-password"
+                                }
+                            })
+                            <small>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</small>
+                        </div>
+                    </div>
+                    <span style="height: 40px;" class="border-right border-secondary mx-3"></span>
+                    <label class="d-flex align-items-baseline col-xs-12 w-auto m-0">
+                        <small class="text-muted">
+                            <i class="fa fa-user-secret text-primary"></i>
+                            Não divulgar meu nome publicamente
+                            @Html.CheckBoxFor(m => m.IsAnonymous, new { @class = "ml-2" })
+                        </small>
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 bg-light text-center py-2 mt-3 rounded">
+                <button class="btn btn-sm btn-primary px-5" style="border-radius: 40px;" type="submit">Save</button>
+            </div>
+            if (!string.IsNullOrEmpty(success))
+            {
+                <div class="my-1 alert bg-success col-12" role="alert">
+                    <h5 class="alert-heading text-light">
+                        Success!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
+                    <hr class="my-2 bg-white-50">
+                    <small class="text-monospace">@success</small>
+                </div>
+            }
+            if (!string.IsNullOrEmpty(error))
+            {
+                <div class="my-1 alert bg-danger col-12" role="alert">
+                    <h5 class="alert-heading text-light">
+                        Your request failed!
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>
+                    <hr class="my-2 bg-white-50">
+                    <small class="text-monospace">@error</small>
+                </div>
+            }
+            <p class="col-12 mt-5 text-center text-muted">&copy;Made by <a href="https://github.com/icarotorres"> icaro torres <i class="fa fa-github"></i> </a> - @DateTime.Now.Year</p>
+        }
+    </div>
+</div>
+<style>
+    .container {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/stuart-crud")
+}

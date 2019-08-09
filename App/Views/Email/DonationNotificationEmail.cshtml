@@ -1,0 +1,52 @@
+﻿@model Services.Email.Models.DonationNotificationEmailModel
+@{
+    Layout = "~/Views/Shared/_LayoutEmail.cshtml";
+}
+<body style="width: 100vw; min-width: 700px;">
+    <h1>@Model.Title</h1>
+    <hr />
+    <h3>@Model.Compliment <b>@Model.RecipientDisplayName</b>,</h3>
+    <div style="display: flex; align-items: baseline; flex-direction: column; justify-content: space-around; padding: 20px; background-color: #efefef; color:#2e2e2e;">
+        <h2>
+            Obrigado por doar! =)
+        </h2>
+        <h5>
+            Nós recebemos uma notificação sobre sua doação de <b>@Model.AmountAsCurrency</b> às (UTC : @DateTime.UtcNow.ToUniversalTime()).
+        </h5>
+        <p>
+            Agora você pode acessar sua área de usuário registrada para emitir seu comprovante de doação.
+        </p>
+        <p>
+            Você também pode ver todas as suas doações, e checar nossa transparência de histórico de conta, para seguir nossos faturamentos e investimentos feitos.
+        </p>
+
+        @if (string.IsNullOrEmpty(Model.GeneratedPassword))
+        {
+            <p>
+                <b>Nos acesse com suas credenciais registradas</b>. Lá você pode recuperar seu acesso caso tenha esquecido sua senha.
+            </p>
+        }
+        else
+        {
+            <p>
+                Para fazer isso, use este e-mail e a senha provisória gerada: <b>@Model.GeneratedPassword</b>
+            </p>
+        }
+        @if (!string.IsNullOrEmpty(Model.QuoteMessage))
+        {
+            <h5>@Html.Raw(Model.QuoteMessage)</h5>
+        }
+
+        <hr />
+
+        <em>Agradecido.</em>
+        <address>
+            @Html.DisplayFor(m => m.WrittenBy)<br>
+            Visit us at:<br>
+            <a href="@Html.DisplayFor(m  => m.Site)" target="_blank">@Html.DisplayFor(m => m.Site)</a><br>
+            @Html.DisplayFor(m => m.InstitutionName)<br>
+            <small>@Html.DisplayFor(m => m.Address)</small><br />
+            <small>@Html.DisplayFor(m => m.CEP), @Html.DisplayFor(m => m.City) - @Html.DisplayFor(m => m.County) - @Html.DisplayFor(m => m.Country)</small>
+        </address>
+    </div>
+</body>

@@ -1,0 +1,47 @@
+﻿@using App.Models;
+@model EmailModel
+
+<div class="modal-content">
+    @using (Ajax.BeginForm(
+        "Recovery",
+        "Login",
+        new AjaxOptions { HttpMethod = "Post" },
+        htmlAttributes: new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-header text-light bg-secondary">
+            <h5 class="modal-title" id="stuart-modal-header text-light">
+                Recuperar Senha
+            </h5>
+            <button type="button" class="close text-light" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body bg-dark">
+            <p class="text-muted">Por favor, informe seu <b>e-mail</b> registrado para receber <b>novos dados de acesso</b> no seu <em>inbox</em>.</p>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(m => m.Email, new
+                {
+                    htmlAttributes = new
+                    {
+                        @autofocus = true,
+                        @class = "form-control",
+                        @placeholder = "Endereço de e-mail",
+                        @type = "email",
+                        @autocomplete = "username"
+                    }
+                })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="modal-footer bg-dark">
+            <div class="d-flex flex-fill justify-content-between">
+                <button type="reset" class="btn btn-outline-secondary" data-dismiss="modal" aria-label="Fechar">Sair</button>
+                <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+        </div>
+    }
+</div>
+@Scripts.Render("~/bundles/jqueryval")

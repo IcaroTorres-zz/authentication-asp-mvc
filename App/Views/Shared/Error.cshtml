@@ -1,0 +1,81 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    List<Exception> ExtractInnerExceptions(Exception e)
+    {
+        if (e != null)
+        {
+            var exs = new List<Exception> { e };
+            exs.AddRange(ExtractInnerExceptions(e.InnerException));
+            return exs;
+        }
+        else
+            return new List<Exception> { e };
+    }
+
+    var exceptions = ExtractInnerExceptions(Model.Exception);
+    var error = Model.Exception.Message;
+    var errorCode = Response.StatusCode;
+    var errorDescription = Response.StatusDescription;
+    ViewBag.Title = $"{errorCode} - {errorDescription}";
+
+#if RELEASE
+var isRelease = true;
+#else
+    var isRelease = false;
+#endif
+}
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web:700,900" rel="stylesheet">
+
+<!-- Custom stlylesheet -->
+@Styles.Render("~/Content/error-page.css")
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+<div id="error">
+    <div class="error">
+        <div class="error-code">
+            <h1 class="d-flex align-items-center justify-content-between">
+                @errorCode
+                <img src="@Url.Content("~/Content/img/Error.png")" class="rounded w-50 mt-3" alt="Error">
+            </h1>
+        </div>
+        <h2 class="text-danger mb-2">Oops! Something went wrong loading This Page</h2>
+        @if (isRelease)
+        {
+            <p>Sorry but the page you are looking for does not exist, have been removed, name changed or is temporarily unavailable.</p>
+        }
+        else
+        {
+            <hr class="bg-light my-2"/>
+
+            <table class="mb-2" style="width: 100%;">
+                <tr>
+                    <th class="text-muted">Exceptions</th>
+                    <th class="text-muted mr-auto text-right">Message</th>
+                </tr>
+                @foreach (var ex in exceptions)
+                {
+                    if (ex != null)
+                    {
+                        <tr>
+                            <td class="text-monospace" style="vertical-align: top; font-size: 12px;">@ex.GetType().Name</td>
+                            <td class="text-monospace text-right" style="vertical-align: top; font-size: 12px;">@ex.Message</td>
+                        </tr>
+                    }
+                }
+            </table>
+
+        }
+        <a href="/">Go To Homepage</a>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Recuperação não permitida";
+}
+
+<div class="container">
+    <div class="text-center m-auto" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 600px;">
+        <div class="my-1 alert bg-warning p-4 " role="alert">
+            <h3 class="alert-heading text-dark"> Link Inválido </h3>
+            <hr class="my-2 bg-white-50">
+            <p class="text-muted">Este link não é mais válido. Isso pode ocorrer após <b>muitas tentativas</b> de usá-lo, ou a <b>data de expiração já passou</b>.</p>
+            <p class="text-muted">Nós recomendamos checar sua <b>caixa de e-mail com mais frequência</b> afim de evitar esquecer possíveis avisos.</p>
+        </div>
+        <div class="signin-wrapper w-100 m-auto bg-light text-center py-3">
+            <a class="btn btn-primary px-5" style="border-radius: 40px;" href="/Login">Login</a>
+        </div>
+        <p class="mt-5 text-muted">&copy;Rede Synapse - @DateTime.Now.Year</p>
+    </div>
+</div>

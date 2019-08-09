@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - SYNAPSE</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
+
+    <!-- Modal -->
+    <div class="modal fade" id="stuart-modal" tabindex="-1"
+         role="dialog"
+         aria-labelledby="stuart-modal-header"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document"></div>
+    </div>
+
+    <!-- Toast -->
+    <div id="stuart-toast-wrapper"
+         aria-live="polite" aria-atomic="true"
+         style="position: fixed; bottom: 0; right: 50%; transform: translateX(50%);"
+         class="d-flex flex-column-reverse justify-content-start">
+    </div>
+</body>
+</html>

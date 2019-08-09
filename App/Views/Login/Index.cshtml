@@ -1,0 +1,126 @@
+﻿@model LoginModel
+@using App.Models
+@{
+    ViewBag.Title = "Área de Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    var success = (string)ViewBag.Success;
+    var error = (string)ViewBag.Error;
+}
+
+<div class="container">
+    <div class="text-center">
+        @using (Html.BeginForm("Index", "Login", new { returnUrl = Request.QueryString["ReturnUrl"] }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="signin-wrapper w-100 mx-auto bg-light mb-4">
+                @if (!string.IsNullOrEmpty(success))
+                {
+                    <div class="my-1 alert bg-success" role="alert">
+                        <h5 class="alert-heading text-light">
+                            Sucesso!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </h5>
+                        <hr class="my-2 bg-white-50">
+                        <small class="text-monospace">@success</small>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(error))
+                {
+                    <div class="my-1 alert bg-danger" role="alert">
+                        <h5 class="alert-heading text-light">
+                            Sua requisição falhou!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </h5>
+                        <hr class="my-2 bg-white-50">
+                        <small class="text-monospace">@error</small>
+                    </div>
+                }
+                <div class="p-4 text-left">
+                    <h5 class="mb-4 font-weight-normal text-primary text-left">Conta de Acesso</h5>
+                    <div class="form-group">
+                        <small>@Html.LabelFor(m => m.Email, new { @class = "label-control text-muted" })</small>
+                        <div class="input-group">
+                            @Html.EditorFor(m => m.Email, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @autofocus = true,
+                                    @class = "form-control text-primary",
+                                    @placeholder = "email@domain.com",
+                                    @type = "email",
+                                    autocomplete = "username",
+                                    aria_describedby = "email-icon"
+                                }
+                            })
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-primary" style="width: 38px; font-size: 12px" id="email-icon"><i class="fa fa-envelope-open text-light"></i></span>
+                            </div>
+                        </div>
+                        <small>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</small>
+                    </div>
+                    <div class="form-group">
+                        <small>@Html.LabelFor(m => m.Password, new { @class = "label-control text-muted" })</small>
+                        <div class="input-group">
+                            @Html.EditorFor(m => m.Password, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @autofocus = true,
+                                    @class = "form-control text-primary",
+                                    @placeholder = "password",
+                                    @type = "password",
+                                    autocomplete = "current-password",
+                                    aria_describedby = "password-icon"
+                                }
+                            })
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-primary" style="width: 38px" id="password-icon"><i class="fa fa-unlock-alt text-light"></i></span>
+                            </div>
+                        </div>
+                        <small>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</small>
+                    </div>
+                </div>
+                <div class="border-top border-primary px-4 py-2 d-flex justify-content-between align align-items-center">
+                    <label class="d-flex align-items-baseline text-dark m-0">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "mr-2" }) Lembrar-me
+                    </label>
+                    <a href="#" class="text-primary btn btn-sm btn-link px-0" data-ismodal="true" data-action="@Url.Action("RecoveryView", "Login")">Esqueceu sua senha?</a>
+                </div>
+            </div>
+            <div class="signin-wrapper w-100 m-auto bg-light text-center py-2">
+                <button class="btn btn-sm btn-primary px-5" style="border-radius: 40px;" type="submit">Entrar</button>
+            </div>
+            <p class="mt-5 text-center text-muted">&copy;Made by <a href="https://github.com/icarotorres"> icaro torres <i class="fa fa-github"></i> </a> - @DateTime.Now.Year</p>
+        }
+    </div>
+</div>
+
+<style>
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .signin-wrapper {
+        max-width: 380px;
+        border-radius: 10px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/stuart-crud")
+}
